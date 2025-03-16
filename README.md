@@ -2,7 +2,7 @@
 
 Libraries to facilitate adoption and usage of AI models
 
-[![Build Status](https://garaproject.visualstudio.com/UmbrellaFramework/_apis/build/status/Umbrella.DDD?branchName=main)](https://garaproject.visualstudio.com/UmbrellaFramework/_build/latest?definitionId=80&branchName=main)
+[![Build Status](https://garaproject.visualstudio.com/UmbrellaFramework/_apis/build/status%2FUmbrella.AI?repoName=fgaravaglia%2FUmbrella.AI&branchName=main)](https://garaproject.visualstudio.com/UmbrellaFramework/_build/latest?definitionId=105&repoName=fgaravaglia%2FUmbrella.AI&branchName=main)
 
 To install it, use proper command:
 

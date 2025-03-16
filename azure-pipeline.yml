@@ -1,0 +1,66 @@
+trigger:
+  branches:
+    include:
+      - main
+    exclude:
+      - release-candidate
+
+  paths:
+    include:
+      - src
+    exclude:
+      - script/*
+      - libs/*
+      - devops/*
+
+resources:
+  repositories:
+    # For type: github, name is <identity>/<repo> as in the examples above. For type: git (Azure Repos), name is <project>/<repo>.
+    - repository: coreTemplates
+      type: git
+      name: Umbrella/Umbrella.Devops
+      ref: refs/heads/main
+      endpoint: Garaproject
+
+parameters:
+  - name: inputSonarScanEnabled
+    displayName: "Enable Sonar Scan"
+    type: boolean
+    default: True
+  - name: inputOwaspScanEnabled
+    displayName: "Enable OWASP Scan"
+    type: boolean
+    default: true
+  - name: inputPublishPackage
+    displayName: "Publish Package to Nuget.Org"
+    type: boolean
+    default: False
+
+extends:
+  template: dotnet-pakages-pipeline.1.2.yaml@coreTemplates
+  parameters:
+    UseCommonVersioning: true
+    MajorVersion: 0
+    MinorVersion: 9
+    PatchVersion: 0
+    TargetDotNetFramework: 8.x
+    SonarScanEnabled: ${{ parameters.inputSonarScanEnabled }}
+    SonarSettings:
+      ProjectKey: Umbrella.AI
+      ProjectName: Umbrella.AI
+      TestReportFileName: cobertura.xml
+    PublishPackage: ${{ parameters.inputPublishPackage }}
+    CustomNugetFile: src/Nuget.config
+    NugetSecretFileName: Nuget.apikey.txt
+    OwaspScanEnabled: ${{ parameters.inputOwaspScanEnabled }}
+    ListOfProjToBuild:
+      - path: src/Umbrella.AI.Gemini.Tests
+        name: Umbrella.AI.Gemini.Tests
+        publishRequired: false
+        isWebProj: False
+    ListOfProjToTest:
+      - path: src/Umbrella.AI.Gemini.Tests
+        name: Umbrella.AI.Gemini.Tests
+    ListOfProjToPublish:
+      - path: src/Umbrella.AI.Gemini
+        name: Umbrella.AI.Gemini

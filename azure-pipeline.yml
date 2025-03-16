@@ -23,10 +23,6 @@ resources:
       endpoint: Garaproject
 
 parameters:
-  - name: inputSonarScanEnabled
-    displayName: "Enable Sonar Scan"
-    type: boolean
-    default: True
   - name: inputOwaspScanEnabled
     displayName: "Enable OWASP Scan"
     type: boolean
@@ -44,7 +40,7 @@ extends:
     MinorVersion: 9
     PatchVersion: 0
     TargetDotNetFramework: 8.x
-    SonarScanEnabled: ${{ parameters.inputSonarScanEnabled }}
+    SonarScanEnabled: False
     SonarSettings:
       ProjectKey: Umbrella.AI
       ProjectName: Umbrella.AI
